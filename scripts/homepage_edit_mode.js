@@ -1,0 +1,18 @@
+if (sessionStorage.getItem("Sophie_Bluel_Architecte_JWT")) {
+  const nav_login_logout = document.querySelector(".nav_login_logout");
+  const filters_container = document.querySelector(".filters_container");
+  const update_projects = document.querySelector(".update_projects");
+
+  nav_login_logout.innerText = "logout";
+  nav_login_logout.href = "./index.html";
+  filters_container.classList.add("filters_container_hidden");
+  update_projects.classList.remove("update_projects_hidden");
+
+
+  nav_login_logout.addEventListener("click", () => {
+    sessionStorage.removeItem("Sophie_Bluel_Architecte_JWT");
+  });
+} else {
+  const banner_edit_mode = document.querySelector(".banner_edit_mode");
+  banner_edit_mode.classList.add("banner_edit_mode_hidden");
+}
