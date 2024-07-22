@@ -219,8 +219,8 @@ function sendNewWorks(){
         }).then(async (res) => {
             if (res.ok) {
                 await showImgProjects();
-                const msgWorkSend = document.querySelector(".messageSuccess");
-                msgWorkSend.textContent = "Projet ajouté avec succès";
+                const messageSuccess = document.querySelector(".messageSuccess");
+                messageSuccess.textContent = "Projet ajouté avec succès";
                 document.getElementById("form-create").reset();
                 displayImage();
             }
