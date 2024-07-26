@@ -115,6 +115,8 @@ function closeSecondModal(){
         modal.setAttribute('aria-hidden', true);
         modalIsHidden = true;
         secondModalIsHidden = true;
+        const messageSuccess = document.querySelector(".messageSuccess");
+        messageSuccess.textContent = "";
     }
 }
 
@@ -128,6 +130,8 @@ function returnToModal1(){
         modal.setAttribute('aria-modal', true);
         modalIsHidden = false;
         secondModalIsHidden = true;
+        const messageSuccess = document.querySelector(".messageSuccess");
+        messageSuccess.textContent = "";
     }
 }
 
@@ -146,7 +150,7 @@ function showCategoriesInSelector() {
         .then((data) => {
             var category = `<option value=""></option>`;
             for (var i = 0; i < data.length; i++) {
-                category += `<option value="${data[i].name}">${data[i].name}</option>`;
+                category += `<option value="${data[i].id}">${data[i].name}</option>`;
             }        
             categorySelector.innerHTML = category;
     }).catch(function (error) {
@@ -203,26 +207,43 @@ function checkCategory(){
     }
 }
 
+    titleInput.addEventListener("change",  () =>{
+        if(checkImage() && checkTitle() && checkCategory()){
+            document.querySelector(".sendNewWorks").style.backgroundColor = "#1D6154";
+        }
+    })
+
+    categorySelector.addEventListener("change",  () =>{
+        if(checkImage() && checkTitle() && checkCategory()){
+            document.querySelector(".sendNewWorks").style.backgroundColor = "#1D6154";
+        }
+    })
+
+
 
 function sendNewWorks(){
     if(checkImage() && checkTitle() && checkCategory()){
-        const bodyData = new FormData();
-        bodyData.append("image", imageInput.files[0]);
-        bodyData.append("title", titleInput.value);
-        bodyData.append("category", categorySelector.value);
+        
+        const formData = new FormData();
+        formData.append('image', imageInput.files[0]);
+        formData.append('title', titleInput.value);
+        formData.append('category', categorySelector.value);
+        
+        
         fetch("http://localhost:5678/api/works", {
             method: "POST",
             headers: {
+                accept: "application/json",
                 authorization: `Bearer ${sessionStorage.getItem("token")}`,
             },
-            body: bodyData,
+            body: formData,
         }).then(async (res) => {
             if (res.ok) {
                 await showImgProjects();
                 const messageSuccess = document.querySelector(".messageSuccess");
                 messageSuccess.textContent = "Projet ajouté avec succès";
-                document.getElementById("form-create").reset();
-                displayImage();
+                document.getElementById("uploadForm").reset();
+                displayImg();
             }
         });
     }

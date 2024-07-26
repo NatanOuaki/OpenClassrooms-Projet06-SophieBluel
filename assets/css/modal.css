@@ -115,7 +115,9 @@
 
 #uploadForm .messageSuccess {
     color: green;
+    text-align: center;
     font-weight: 600;
+    margin-bottom: 20px ;
 }
 
 #uploadForm .imageZone {
@@ -255,7 +257,7 @@
     color: white;
     text-align: center;
     font-family: "Syne";
-    background-color: #a7a7a7 !important;
+    background-color: #a7a7a7;
     border: none;
     border-radius: 20px;
     cursor: pointer;
