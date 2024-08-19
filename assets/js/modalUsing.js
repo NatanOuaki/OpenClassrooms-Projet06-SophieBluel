@@ -82,6 +82,7 @@ function deleteItem(event) {
     .then(async (res) => {
         if (res.ok) {
             await showImgProjects();
+            await showAllProjects();
         }
     })
     .catch(function (error) {
@@ -240,6 +241,7 @@ function sendNewWorks(){
         }).then(async (res) => {
             if (res.ok) {
                 await showImgProjects();
+                await showAllProjects();
                 const messageSuccess = document.querySelector(".messageSuccess");
                 messageSuccess.textContent = "Projet ajouté avec succès";
                 document.getElementById("uploadForm").reset();
